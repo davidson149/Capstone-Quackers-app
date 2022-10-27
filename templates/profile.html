@@ -1,0 +1,42 @@
+{%extends 'base.html'%}
+{%block title%}Profile Page{%endblock%}
+{%block body%}
+<h1>Profile page!</h1>
+
+{%for post in posts%}
+<tr>
+    <td>{{post.id}}</td>
+    <td>{{post.user.username}}</td>
+    <td>{{post.content}}</td>
+  </tr>
+  <br>
+{%endfor%}
+<br>
+
+<button id="toggle-button">Display Potential Friends</button>
+  <div id="friend_container">
+  
+  
+    {%for user in users%}
+  
+      <form action="/add_friend" method="post">
+      <td>{{user.id}}</td>
+      <td>{{user.username}}</td>
+      
+       <input type='hidden' id='friend_id' name='username' value={{user.id}}>
+       <button type='submit' id='friend_id'>add friend</button>
+      </form>
+      {%endfor%} 
+  </div>
+
+ <div id = 'friends'>
+  {%for friend in friends%}
+    <form action='/get_friend' method='post'>
+      <td>{{friend.id}}</td>
+      <td>{{friend.username}}</td>
+     <input type='hidden' id='friend_id' name='username' value={{friend.id}}>
+    </form>
+  {%endfor%}
+ </div> 
+<script src='/static/friends_list.js'></script>
+{% endblock %}

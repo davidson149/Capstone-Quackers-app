@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<h1>Quackers Homepage!</h1>
+  <div class="container"> 
+    <label> Quack Here!</label>
+     <form action ="posts">
+      <button> Create a Post!</button
+     </form>
+  </div> 
+  <br>
+ <div> 
+   {%for post in posts%}
+   <tr>
+     <td>{{post.id}}</td>
+     <td>{{post.user.username}}</td>
+     <td>{{post.content}}</td> 
+      <form action='/like_post' method='post'>
+        
+    <input type ='hidden' id='post_id' name='content' value={{post.id}}>
+    <input type='submit' name='like_post'> 
+      </form>
+   </tr>
+    <br>
+  {%endfor%}
+  
+</div>
+{% endblock %}

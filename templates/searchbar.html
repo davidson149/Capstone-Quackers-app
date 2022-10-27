@@ -1,0 +1,101 @@
+<form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+
+
+  <h1>Quackers</h1>
+  <div class ="container"> 
+    <form action="posts" method="POST">
+      <div>
+          <label>
+            Quack here!
+            <input type="content" name="content">
+          </label>
+        </div>
+        <div>
+          <input type="submit" value="post">
+        </div>
+   </form>
+  </div>
+
+
+  <div class ="container"> 
+    <form action="" method="post" novalidate>
+      {{form.csrf_token}}
+  
+      <p>
+  
+          {{form.content.label}}
+          {{form.content(size=32)}}
+  
+  
+  
+          {% for error in form.content.errors %}
+          <span style="color:red;">
+  
+              {{error}}
+          </span>
+          {% endfor %}
+  
+      </p>
+  
+  
+  
+        <p>
+            <input type="submit" value="posts" class="btn btn-success">
+  
+        </p>
+  
+  
+  
+    </form>
+  </div>  
+
+  class Boards(db.Model):
+    
+  __tablename__="boards"
+  
+  id = db.Column(db.Integer,primary_key=True)
+  created_by = db.Column(db.Integer, db.ForeignKey(Users.id))
+  title = db.Column(db.Text(255))
+  profile = db.Column(db.Text(255))
+  content = db.Column(db.Text(255))
+  
+  def __repr__(self) -> str:
+      return super().__repr__()
+  class Board_Posts(db.Model):
+    
+  __tablename__="board_posts"
+  
+  id = db.Column(db.Integer, primary_key=True)
+  board_id = db.Column(db.Integer, db.ForeignKey(Boards.id))
+  user_id =db.Column(db.Integer, db.ForeignKey(Users.id))
+  content = db.Column(db.Text(255))
+  
+  def __repr__(self) -> str:
+      return super().__repr__()
+  
+class Board_Messages(db.Model):
+  
+  __tablename__="board_messages"
+  
+  id = db.Column(db.Integer, primary_key=True)
+  board_id = db.Column(db.Integer, db.ForeignKey(Boards.id))
+  user_id =db.Column(db.Integer, db.ForeignKey(Users.id))
+  content = db.Column(db.Text(255))
+  
+  def __repr__(self) -> str:
+      return super().__repr__()
+  
+class Board_Members(db.Model):
+
+  __tablename__= "board_members"
+  
+  id = db.Column(db.Integer, primary_key=True)
+  board_id = db.Column(db.Integer, db.ForeignKey(Boards.id))
+  user_id =db.Column(db.Integer, db.ForeignKey(Users.id))
+  
+  def __repr__(self) -> str:
+      return super().__repr__()
+   
